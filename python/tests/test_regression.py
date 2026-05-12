@@ -45,3 +45,21 @@ def test_bug_001_delete_task_supprime_par_id_pas_par_index():
 # Ajoutez un 2eme test de regression qui couvre un autre scenario
 # revelateur du meme bug. Ex : supprimer la derniere tache.
 # ------------------------------------------------------------------
+@pytest.mark.regression
+def test_bug_001_delete_task_inexistante_leve_une_erreur():
+    """
+    Variante du bug-001 : tenter de supprimer une tache avec un id
+    qui n'existe pas doit lever TaskNotFoundError, pas supprimer
+    silencieusement une tache au hasard.
+    """
+    from src.exceptions import TaskNotFoundError
+    mgr = TaskManager()
+    mgr.create_task("Tache id=1")
+    mgr.create_task("Tache id=2")
+
+    with pytest.raises(TaskNotFoundError):
+        mgr.delete_task(999)
+
+    # Les deux taches doivent toujours etre presentes
+    ids_restants = sorted(t.id for t in mgr.list_tasks(sort_by="id"))
+    assert ids_restants == [1, 2]

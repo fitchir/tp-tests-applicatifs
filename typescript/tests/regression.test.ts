@@ -26,4 +26,17 @@ describe("Regressions", () => {
 
   // TODO ELEVE - Partie 4 :
   // Ajoutez un 2eme test de regression qui couvre un autre scenario du meme bug.
+  it("bug-001 : deleteTask sur id inexistant leve une erreur sans supprimer", () => {
+    // Arrange
+    const mgr = new TaskManager();
+    mgr.createTask({ title: "Tache id=1" });
+    mgr.createTask({ title: "Tache id=2" });
+
+    // Act & Assert : supprimer un id inexistant doit lever une erreur
+    expect(() => mgr.deleteTask(999)).toThrow();
+
+    // Les deux taches doivent toujours etre presentes
+    const idsRestants = mgr.listTasks({ sortBy: "id" }).map((t) => t.id);
+    expect(idsRestants).toEqual([1, 2]);
+  });
 });
