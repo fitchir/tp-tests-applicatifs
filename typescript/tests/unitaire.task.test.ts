@@ -39,4 +39,29 @@ describe("Task (unitaire)", () => {
   });
 
   // TODO ELEVE : ajoutez au moins 2 tests unitaires supplementaires ici.
+  it("a une description vide par defaut", () => {
+    // Arrange
+    const tache = new Task({ id: 1, title: "Faire les courses" });
+    // Act
+    const desc = tache.description;
+    // Assert
+    expect(desc).toBe("");
+  });
+
+  it("accepte une due_date au format ISO", () => {
+    // Arrange / Act
+    const tache = new Task({ id: 1, title: "Réviser", dueDate: "2025-12-31" });
+    // Assert
+    expect(tache.dueDate).toBe("2025-12-31");
+  });
+
+  it("toDict contient le titre et l'id", () => {
+    // Arrange
+    const tache = new Task({ id: 42, title: "Apprendre Vitest" });
+    // Act
+    const d = tache.toDict();
+    // Assert
+    expect(d.title).toBe("Apprendre Vitest");
+    expect(d.id).toBe(42);
+    });
 });

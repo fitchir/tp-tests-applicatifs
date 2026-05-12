@@ -51,3 +51,25 @@ def test_task_to_dict_renvoie_les_bons_champs():
 # Idees : description optionnelle, sequence priorite low<medium<high,
 # format ISO de la date.
 # ------------------------------------------------------------------
+@pytest.mark.unitaire
+def test_task_description_optionnelle():
+    tache = Task(id=1, title="Faire les courses")
+    assert tache.description == ""
+
+@pytest.mark.unitaire
+def test_task_accepte_une_due_date_iso():
+    # Arrange
+    tache = Task(id=1, title="Réviser", due_date="2025-12-31")
+    # Act & Assert
+    assert tache.due_date == "2025-12-31"
+
+
+@pytest.mark.unitaire
+def test_task_to_dict_contient_le_titre_et_id():
+    # Arrange
+    tache = Task(id=42, title="Apprendre pytest")
+    # Act
+    d = tache.to_dict()
+    # Assert
+    assert d["title"] == "Apprendre pytest"
+    assert d["id"] == 42
