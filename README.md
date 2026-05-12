@@ -1,3 +1,6 @@
+![CI](https://github.com/fitchir/tp-tests-applicatifs/actions/workflows/ci.yml/badge.svg)
+
+# TP Tests Applicatifs
 # TP Tests Applicatifs
 
 Mini gestionnaire de tâches implémenté en **Python (pytest)** et en **TypeScript (Vitest)**, conçu pour pratiquer les huit types de tests applicatifs sur un projet concret, puis livrer un dépôt GitHub avec une chaîne d'intégration continue (CI) verte.
@@ -234,3 +237,11 @@ Coche cette mini-checklist avant de remettre ton lien GitHub :
 | Flaky test | Test qui passe ou échoue de façon aléatoire (mauvais, à corriger) |
 
 Bon TP.
+
+## Ce que j'ai appris
+
+1. Le pattern AAA (Arrange/Act/Assert) structure chaque test de façon lisible et maintenable.
+2. Tester aux frontières (longueur max, liste vide, volume) révèle des bugs invisibles en conditions normales.
+3. Un test d'intégration vérifie que plusieurs modules coopèrent, pas seulement qu'ils fonctionnent isolément.
+4. Un test de régression est un garde-fou permanent : il empêche un bug corrigé de revenir.
+5. La CI GitHub Actions valide automatiquement chaque push et rend le projet fiable pour toute l'équipe.
