@@ -45,3 +45,33 @@ def test_parcours_complet_journee_de_travail(tmp_path):
     mgr2.replace_all(load_tasks(str(fichier)))
     assert mgr2.get_stats()["total"] == 3
     assert mgr2.get_stats()["done"] == 2
+
+@pytest.mark.e2e
+def test_parcours_suppression_et_verification(tmp_path):
+    """Scenario : un utilisateur cree des taches, en supprime une, verifie la coherence."""
+    fichier = tmp_path / "taches.json"
+
+    # 1. L'utilisateur cree 3 taches
+    mgr = TaskManager()
+    mgr.create_task("Tache A", priority="low")
+    mgr.create_task("Tache B", priority="high")
+    mgr.create_task("Tache C", priority="medium")
+    assert mgr.get_stats()["total"] == 3
+
+    # 2. Il supprime la tache B (id=2)
+    mgr.delete_task(2)
+    assert mgr.get_stats()["total"] == 2
+
+    # 3. Il verifie que seules A et C restent
+    titres = [t.title for t in mgr.list_tasks(sort_by="id")]
+    assert titres == ["Tache A", "Tache C"]
+
+    # 4. Il sauvegarde et recharge
+    save_tasks(str(fichier), mgr.list_tasks(sort_by="id"))
+    mgr2 = TaskManager()
+    mgr2.replace_all(load_tasks(str(fichier)))
+
+    # 5. Apres rechargement, les donnees sont coherentes
+    assert mgr2.get_stats()["total"] == 2
+    assert mgr2.list_tasks(sort_by="id")[0].title == "Tache A"
+    assert mgr2.list_tasks(sort_by="id")[1].title == "Tache C"
