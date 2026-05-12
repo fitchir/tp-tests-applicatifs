@@ -4,6 +4,7 @@ import { describe, it, expect } from "vitest";
 import { Task } from "../src/task.js";
 import { TaskManager } from "../src/taskManager.js";
 import { TITLE_MAX } from "../src/validators.js";
+import { InvalidInputError } from "../src/errors.js";
 
 describe("Cas limites", () => {
   it("titre d'un seul caractere est accepte", () => {
@@ -34,4 +35,17 @@ describe("Cas limites", () => {
   });
 
   // TODO ELEVE : ajoutez 2 tests de cas limites supplementaires.
+  it("titre de longueur max+1 est refuse", () => {
+    // Frontiere : TITLE_MAX + 1 doit etre rejete
+    expect(() => new Task({ id: 1, title: "x".repeat(TITLE_MAX + 1) })).toThrow(InvalidInputError);
+  });
+
+  it("manager avec 1000 taches les liste toutes", () => {
+    // Volume : gros nombre de taches
+    const mgr = new TaskManager();
+    for (let i = 0; i < 1000; i++) {
+      mgr.createTask({ title: `Tache ${i}` });
+    }
+    expect(mgr.listTasks().length).toBe(1000);
+  });
 });

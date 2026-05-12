@@ -47,4 +47,11 @@ describe("Entrees invalides", () => {
   it("creer une Task avec titre vide est rejete", () => {
     expect(() => new Task({ id: 1, title: "" })).toThrow(InvalidInputError);
   });
+
+  // TODO ELEVE : ajoutez au moins 1 test d'entree invalide supplementaire.
+
+  it("date 29 fevrier annee non bissextile est rejetee", () => {
+    // 2025 n'est pas bissextile
+    expect(() => validateDueDate("2025-02-29")).toThrow(InvalidInputError);
+  });
 });

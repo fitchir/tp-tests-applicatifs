@@ -73,3 +73,8 @@ def test_task_avec_titre_invalide_rejete():
 # ------------------------------------------------------------------
 # TODO ELEVE : ajoutez au moins 1 test d'entree invalide supplementaire.
 # ------------------------------------------------------------------
+@pytest.mark.invalides
+def test_date_29_fevrier_annee_non_bissextile_rejetee():
+    # 2025 n'est pas une annee bissextile, le 29 fevrier n'existe pas
+    with pytest.raises(InvalidInputError):
+        validate_due_date("2025-02-29")

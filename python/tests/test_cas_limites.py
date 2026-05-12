@@ -53,3 +53,18 @@ def test_get_stats_sur_manager_vide(empty_manager):
 # Pistes : titre apres trim qui devient vide, beaucoup de taches (1000),
 # date au 29 fevrier d'une annee non bissextile.
 # ------------------------------------------------------------------
+@pytest.mark.cas_limites
+def test_titre_max_plus_un_est_refuse():
+    # Frontiere : TITLE_MAX + 1 doit etre rejete
+    from src.exceptions import InvalidInputError
+    with pytest.raises(InvalidInputError):
+        Task(id=1, title="x" * (TITLE_MAX + 1))
+
+
+@pytest.mark.cas_limites
+def test_manager_avec_mille_taches():
+    # Volume : 1000 taches doivent toutes etre listables
+    mgr = TaskManager()
+    for i in range(1000):
+        mgr.create_task(f"Tache {i}")
+    assert len(mgr.list_tasks()) == 1000
