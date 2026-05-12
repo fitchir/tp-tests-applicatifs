@@ -47,4 +47,18 @@ describe("Integration : storage + taskManager", () => {
     const nouvelle = mgr2.createTask({ title: "Suivante" });
     expect(nouvelle.id).toBe(2);
   });
+  it("modifier une tache puis verifier la persistance", () => {
+    // Arrange
+    const fichier = join(tmpDir, "taches.json");
+    const mgr = new TaskManager();
+    mgr.createTask({ title: "Tache a modifier", priority: "low" });
+
+    // Act : on marque la tache comme done puis on sauvegarde
+    mgr.markDone(1);
+    saveTasks(fichier, mgr.listTasks());
+
+    // Assert : apres rechargement, le statut est bien "done"
+    const rechargees = loadTasks(fichier);
+    expect(rechargees[0].status).toBe("done");
+  });
 });

@@ -39,3 +39,19 @@ def test_liste_triee_par_priorite_descendante(manager_with_3_tasks):
 def test_get_task_inexistante_leve_une_erreur_explicite(empty_manager):
     with pytest.raises(TaskNotFoundError):
         empty_manager.get_task(999)
+
+@pytest.mark.fonctionnel
+def test_filtre_status_done_ne_renvoie_que_les_taches_terminees():
+    # Arrange
+    mgr = TaskManager()
+    mgr.create_task("Tache 1")
+    mgr.create_task("Tache 2")
+    mgr.create_task("Tache 3")
+
+    # Act : on marque seulement la tache 1 comme terminee
+    mgr.mark_done(1)
+
+    # Assert : le filtre ne renvoie qu'une seule tache
+    terminees = mgr.list_tasks(status_filter="done")
+    assert len(terminees) == 1
+    assert terminees[0].title == "Tache 1"

@@ -41,3 +41,18 @@ def test_replace_all_remet_le_compteur_id_a_la_bonne_valeur(tmp_path):
     mgr2.replace_all(load_tasks(str(fichier)))
     nouvelle = mgr2.create_task("Suivante")
     assert nouvelle.id == 2
+
+@pytest.mark.integration
+def test_modifier_une_tache_puis_verifier_persistance(tmp_path):
+    # Arrange
+    fichier = tmp_path / "taches.json"
+    mgr = TaskManager()
+    mgr.create_task("Tache a modifier", priority="low")
+
+    # Act : on marque la tache comme done puis on sauvegarde
+    mgr.mark_done(1)
+    save_tasks(str(fichier), mgr.list_tasks())
+
+    # Assert : apres rechargement, le statut est bien "done"
+    rechargees = load_tasks(str(fichier))
+    assert rechargees[0].status == "done"

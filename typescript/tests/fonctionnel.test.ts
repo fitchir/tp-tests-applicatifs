@@ -35,4 +35,19 @@ describe("Fonctionnels", () => {
     const mgr = new TaskManager();
     expect(() => mgr.getTask(999)).toThrow(TaskNotFoundError);
   });
+  it("filtre status done ne renvoie que les taches terminees", () => {
+    // Arrange
+    const mgr = new TaskManager();
+    mgr.createTask({ title: "Tache 1" });
+    mgr.createTask({ title: "Tache 2" });
+    mgr.createTask({ title: "Tache 3" });
+
+    // Act : on marque seulement la tache 1 comme terminee
+    mgr.markDone(1);
+
+    // Assert : le filtre ne renvoie qu'une seule tache
+    const terminees = mgr.listTasks({ statusFilter: "done" });
+    expect(terminees.length).toBe(1);
+    expect(terminees[0].title).toBe("Tache 1");
+  });
 });
