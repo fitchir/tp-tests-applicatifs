@@ -28,4 +28,12 @@ describe("validators (unitaire)", () => {
   it("validateDueDate null renvoie null", () => {
     expect(validateDueDate(null)).toBeNull();
   });
+  // Tests supplementaires validators
+  it("validateTitle accepte un titre d'un seul caractere", () => {
+    expect(validateTitle("A")).toBe("A");
+  });
+
+  it("validatePriority accepte 'low'", () => {
+    expect(validatePriority("low")).toBe("low");
+  });
 });

@@ -32,3 +32,12 @@ def test_validate_due_date_accepte_iso():
 @pytest.mark.unitaire
 def test_validate_due_date_none_renvoie_none():
     assert validate_due_date(None) is None
+
+@pytest.mark.unitaire
+def test_validate_title_accepte_un_seul_caractere():
+    assert validate_title("A") == "A"
+
+
+@pytest.mark.unitaire
+def test_validate_priority_accepte_low():
+    assert validate_priority("low") == "low"
