@@ -213,14 +213,14 @@ Une fois poussé, ouvre l'onglet **Actions** sur GitHub : ta CI s'exécute autom
 
 Coche cette mini-checklist avant de remettre ton lien GitHub :
 
-- [ ] `pytest` est tout vert dans `python/`
-- [ ] `npm test` est tout vert dans `typescript/`
-- [ ] Le bug-001 est corrigé, le test de régression est en vert
-- [ ] Tous les `TODO ÉLÈVE` sont remplis (au moins un test ajouté par fichier)
-- [ ] CI GitHub Actions verte sur la branche `main`
-- [ ] Badge CI ajouté dans ce README (voir COMMANDES-GIT.md section "Badge CI")
-- [ ] Section "Ce que j'ai appris" ajoutée en bas du README
-- [ ] Au moins dix commits clairs en convention `type(scope): message`
+- [x ] `pytest` est tout vert dans `python/`
+- [x] `npm test` est tout vert dans `typescript/`
+- [x ] Le bug-001 est corrigé, le test de régression est en vert
+- [x ] Tous les `TODO ÉLÈVE` sont remplis (au moins un test ajouté par fichier)
+- [x] CI GitHub Actions verte sur la branche `main`
+- [x] Badge CI ajouté dans ce README (voir COMMANDES-GIT.md section "Badge CI")
+- [x] Section "Ce que j'ai appris" ajoutée en bas du README
+- [x] Au moins dix commits clairs en convention `type(scope): message`
 
 ---
 
